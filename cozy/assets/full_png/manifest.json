@@ -1,0 +1,45 @@
+{
+  "tiles": {
+    "grass": [
+      "tile_grass.png",
+      "tile_flower.png",
+      "tile_bush.png"
+    ],
+    "shore": [
+      "tile_shore.png"
+    ],
+    "water": [
+      "tile_water.png"
+    ]
+  },
+  "objects": {
+    "trees": [
+      "tree_01.png",
+      "tree_02.png"
+    ],
+    "bushes": [
+      "bush_01.png"
+    ],
+    "rocks": [
+      "rock_01.png"
+    ],
+    "pebbles": [
+      "pebble_01.png"
+    ],
+    "houses": [
+      "house_01.png",
+      "house_02.png"
+    ],
+    "campfires": [
+      "campfire.png"
+    ],
+    "people": [
+      "person_01.png",
+      "person_02.png",
+      "person_03.png",
+      "person_04.png",
+      "person_05.png",
+      "person_06.png"
+    ]
+  }
+}
