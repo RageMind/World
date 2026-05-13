@@ -2,9 +2,9 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>ТРОГГЛИТЫ — Симуляция Бога</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230c0c1e'/><rect x='10' y='8' width='12' height='10' fill='%234a5860'/><rect x='12' y='10' width='3' height='3' fill='%2388ffaa'/><rect x='17' y='10' width='3' height='3' fill='%2388ffaa'/><rect x='8' y='20' width='16' height='8' fill='%23384850'/></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230c0c1e'/><polygon points='16,4 28,10 28,22 16,28 4,22 4,10' fill='%23358020'/><polygon points='16,4 28,10 16,16' fill='%2342961e'/><polygon points='16,4 4,10 16,16' fill='%232a6e14'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -26,62 +26,35 @@
           А ты просто играешь.»
         </p>
       </div>
-
-      <nav class="menu-container" role="navigation">
+      <nav class="menu-container">
         <button class="menu-btn primary" id="btn-new-game">
-          <span class="btn-icon">▶</span>
-          <span>НОВАЯ ИГРА</span>
+          <span class="btn-icon">▶</span><span>НОВАЯ ИГРА</span>
         </button>
         <button class="menu-btn" id="btn-settings">
-          <span class="btn-icon">⚙</span>
-          <span>НАСТРОЙКИ</span>
+          <span class="btn-icon">⚙</span><span>НАСТРОЙКИ</span>
         </button>
         <button class="menu-btn" id="btn-about">
-          <span class="btn-icon">ℹ</span>
-          <span>О ИГРЕ</span>
+          <span class="btn-icon">ℹ</span><span>О ИГРЕ</span>
         </button>
       </nav>
     </div>
-
-    <div class="version-badge">ТРОГГЛИТЫ α 0.1</div>
+    <div class="version-badge">ТРОГГЛИТЫ α 0.2</div>
   </div>
 
   <!-- ===== SETTINGS MODAL ===== -->
-  <div id="settings-modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Настройки">
+  <div id="settings-modal" class="modal hidden">
     <div class="modal-content">
       <h2 class="modal-title">НАСТРОЙКИ</h2>
-
       <div class="settings-group">
-        <label for="world-size">Размер мира</label>
-        <select id="world-size">
-          <option value="small">Маленький (100×80)</option>
-          <option value="medium" selected>Средний (200×130)</option>
-          <option value="large">Большой (350×180)</option>
-        </select>
-      </div>
-
-      <div class="settings-group">
-        <label for="pop-start">Начальное население</label>
+        <label>Начальное население</label>
         <input type="range" id="pop-start" min="5" max="50" value="15">
         <span id="pop-start-val">15</span>
       </div>
-
       <div class="settings-group">
-        <label for="sim-speed">Скорость симуляции</label>
+        <label>Скорость симуляции</label>
         <input type="range" id="sim-speed" min="1" max="5" value="2">
         <span id="sim-speed-val">2×</span>
       </div>
-
-      <div class="settings-group">
-        <label for="world-biome">Тип мира</label>
-        <select id="world-biome">
-          <option value="mixed" selected>Смешанный</option>
-          <option value="underground">Подземный</option>
-          <option value="volcanic">Вулканический</option>
-          <option value="frozen">Ледяной</option>
-        </select>
-      </div>
-
       <div class="modal-buttons">
         <button class="menu-btn small" id="btn-settings-close">ЗАКРЫТЬ</button>
       </div>
@@ -89,16 +62,17 @@
   </div>
 
   <!-- ===== ABOUT MODAL ===== -->
-  <div id="about-modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="О игре">
+  <div id="about-modal" class="modal hidden">
     <div class="modal-content">
       <h2 class="modal-title">О ИГРЕ</h2>
       <div class="about-text">
-        <p>Трогглиты — это существа, живущие в мире-симуляции. У каждого — имя, судьба, желания.</p>
-        <p>Ты — их Бог. Ты можешь создавать жизнь и разрушать её одним кликом.</p>
+        <p>Трогглиты — существа, живущие в мире-симуляции. Каждый имеет имя, судьбу и желания.</p>
+        <p>Ты — их Бог. Создавай горы и моря, призывай жизнь и насылай катастрофы.</p>
         <p class="about-quote">«Добро пожаловать в Чёрное Зеркало.»</p>
         <p class="about-version">
-          Версия α 0.1 · 2026<br>
-          Управление: ЛКМ — инструмент · ПКМ — камера · Колесо — зум · Пробел — пауза
+          Версия α 0.2 · 2026<br>
+          ЛКМ — инструмент · ПКМ/перетащить — камера<br>
+          Колесо — зум · Пробел — пауза · Стрелки — вид
         </p>
       </div>
       <div class="modal-buttons">
@@ -118,63 +92,64 @@
       </div>
       <div class="top-center">
         <div class="time-display">
-          <span id="time-icon" title="Время суток">☀</span>
+          <span id="time-icon">☀</span>
           <span id="day-display">День 1</span>
-          <div class="time-bar" title="Прогресс дня">
-            <div id="time-progress" class="time-fill" style="width:0%"></div>
-          </div>
+          <div class="time-bar"><div id="time-progress" class="time-fill" style="width:0%"></div></div>
         </div>
         <div class="stats-display">
-          <div class="stat-item" title="Население">
-            <span class="stat-icon">👥</span>
-            <span id="pop-count">0</span>
-          </div>
-          <div class="stat-item" title="Погибло">
-            <span class="stat-icon">💀</span>
-            <span id="death-count">0</span>
-          </div>
-          <div class="stat-item" title="Построено">
-            <span class="stat-icon">🏠</span>
-            <span id="building-count">0</span>
-          </div>
+          <div class="stat-item" title="Население"><span class="stat-icon">👥</span><span id="pop-count">0</span></div>
+          <div class="stat-item" title="Погибло"><span class="stat-icon">💀</span><span id="death-count">0</span></div>
+          <div class="stat-item" title="Дома"><span class="stat-icon">🏠</span><span id="building-count">0</span></div>
         </div>
       </div>
       <div class="top-right">
-        <button id="btn-pause" class="icon-btn" title="Пауза/Продолжить">⏸</button>
-        <button id="btn-speed" class="icon-btn" title="Скорость симуляции">2×</button>
+        <button id="btn-pause" class="icon-btn" title="Пауза">⏸</button>
+        <button id="btn-speed" class="icon-btn" title="Скорость">2×</button>
       </div>
     </div>
 
     <!-- Left Tools Panel -->
-    <div id="tools-panel" role="complementary" aria-label="Инструменты бога">
+    <div id="tools-panel">
       <div class="panel-header">ИНСТРУМЕНТЫ</div>
 
       <div class="tool-section">
         <div class="tool-section-label">Ландшафт</div>
         <div class="tool-grid">
-          <button class="tool-btn active" data-tool="brush_grass"   title="Трава">
-            <div class="tool-icon grass"></div>
+          <button class="tool-btn active" data-tool="brush_grass" title="Трава">
+            <div class="tool-icon" style="background:linear-gradient(135deg,#56b83c,#3a8820)"></div>
           </button>
-          <button class="tool-btn" data-tool="brush_stone"  title="Камень">
-            <div class="tool-icon stone"></div>
+          <button class="tool-btn" data-tool="brush_stone" title="Камень">
+            <div class="tool-icon" style="background:linear-gradient(135deg,#8a8a8a,#505050)"></div>
           </button>
-          <button class="tool-btn" data-tool="brush_dirt"   title="Земля">
-            <div class="tool-icon dirt"></div>
+          <button class="tool-btn" data-tool="brush_dirt" title="Земля">
+            <div class="tool-icon" style="background:linear-gradient(135deg,#8a5230,#5a3018)"></div>
           </button>
-          <button class="tool-btn" data-tool="brush_sand"   title="Песок">
-            <div class="tool-icon sand"></div>
+          <button class="tool-btn" data-tool="brush_sand" title="Песок">
+            <div class="tool-icon" style="background:linear-gradient(135deg,#e8c862,#a87c30)"></div>
           </button>
-          <button class="tool-btn" data-tool="brush_water"  title="Вода">
-            <div class="tool-icon water"></div>
+          <button class="tool-btn" data-tool="brush_water" title="Вода">
+            <div class="tool-icon water-icon"></div>
           </button>
-          <button class="tool-btn" data-tool="brush_lava"   title="Лава">
-            <div class="tool-icon lava"></div>
+          <button class="tool-btn" data-tool="brush_lava" title="Лава">
+            <div class="tool-icon lava-icon"></div>
           </button>
-          <button class="tool-btn" data-tool="brush_snow"   title="Снег">
-            <div class="tool-icon stone" style="background:#d8e8e8"></div>
+          <button class="tool-btn" data-tool="brush_snow" title="Снег">
+            <div class="tool-icon" style="background:linear-gradient(135deg,#e8f0f4,#9ab0c0)"></div>
           </button>
-          <button class="tool-btn" data-tool="erase"        title="Удалить блок">
+          <button class="tool-btn" data-tool="erase_feature" title="Убрать объект">
             <div class="tool-icon erase">✕</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <div class="tool-section-label">Рельеф</div>
+        <div class="tool-grid">
+          <button class="tool-btn" data-tool="raise" title="Поднять рельеф">
+            <div class="tool-icon terrain-up">▲</div>
+          </button>
+          <button class="tool-btn" data-tool="lower" title="Опустить рельеф">
+            <div class="tool-icon terrain-down">▼</div>
           </button>
         </div>
       </div>
@@ -182,95 +157,84 @@
       <div class="tool-section">
         <div class="tool-section-label">Существа</div>
         <div class="tool-grid">
-          <button class="tool-btn" data-tool="spawn_troglyte" title="Призвать трогглита (10 маны)">
-            <div class="tool-icon troglyte"></div>
+          <button class="tool-btn" data-tool="spawn_troglyte" title="Трогглит (10 маны)">
+            <div class="tool-icon troglyte-icon"></div>
           </button>
-          <button class="tool-btn" data-tool="spawn_elder"    title="Призвать старейшину (20 маны)">
-            <div class="tool-icon elder"></div>
+          <button class="tool-btn" data-tool="spawn_elder" title="Старейшина (20 маны)">
+            <div class="tool-icon elder-icon"></div>
           </button>
         </div>
       </div>
 
       <div class="tool-section">
-        <div class="tool-section-label">Стихии Бога</div>
+        <div class="tool-section-label">Стихии</div>
         <div class="tool-grid">
-          <button class="tool-btn disaster" data-tool="meteor"      title="Метеорит (30 маны)">
-            <div class="tool-icon meteor">☄</div>
+          <button class="tool-btn disaster" data-tool="meteor" title="Метеорит (30 маны)">
+            <div class="tool-icon emoji-icon">☄</div>
           </button>
-          <button class="tool-btn disaster" data-tool="lightning"   title="Молния (15 маны)">
-            <div class="tool-icon lightning">⚡</div>
+          <button class="tool-btn disaster" data-tool="lightning" title="Молния (15 маны)">
+            <div class="tool-icon emoji-icon">⚡</div>
           </button>
-          <button class="tool-btn"          data-tool="rain"        title="Дождь (20 маны)">
-            <div class="tool-icon rain">🌧</div>
+          <button class="tool-btn" data-tool="rain" title="Дождь (20 маны)">
+            <div class="tool-icon emoji-icon">🌧</div>
           </button>
-          <button class="tool-btn disaster" data-tool="earthquake"  title="Землетрясение (40 маны)">
-            <div class="tool-icon earthquake">💥</div>
+          <button class="tool-btn disaster" data-tool="earthquake" title="Землетрясение (40 маны)">
+            <div class="tool-icon emoji-icon">💥</div>
           </button>
-          <button class="tool-btn disaster" data-tool="fire_storm"  title="Огненный шторм (25 маны)">
-            <div class="tool-icon fire-tool">🔥</div>
+          <button class="tool-btn disaster" data-tool="fire_storm" title="Огненный шторм (25 маны)">
+            <div class="tool-icon emoji-icon">🔥</div>
           </button>
-          <button class="tool-btn"          data-tool="heal"        title="Исцеление (20 маны)">
-            <div class="tool-icon heal">✨</div>
+          <button class="tool-btn" data-tool="heal" title="Исцеление (20 маны)">
+            <div class="tool-icon emoji-icon">✨</div>
           </button>
         </div>
       </div>
 
-      <!-- Mana -->
       <div class="mana-container">
         <div class="mana-label">МАНА</div>
-        <div class="mana-bar">
-          <div id="mana-fill" class="mana-fill" style="width:100%"></div>
-        </div>
+        <div class="mana-bar"><div id="mana-fill" class="mana-fill" style="width:100%"></div></div>
         <span id="mana-value">100/100</span>
       </div>
 
-      <!-- Brush size -->
       <div class="brush-container">
         <span class="brush-label">РАЗМЕР</span>
-        <input type="range" id="brush-size" min="1" max="5" value="1" aria-label="Размер кисти">
+        <input type="range" id="brush-size" min="1" max="6" value="1">
         <span id="brush-size-val">1</span>
       </div>
     </div>
 
     <!-- Main Canvas -->
-    <div id="game-canvas-container" role="main">
-      <canvas id="game-canvas" tabindex="0" aria-label="Игровой мир"></canvas>
-      <div id="cursor-tooltip" class="hidden"></div>
+    <div id="game-canvas-container">
+      <canvas id="game-canvas"></canvas>
     </div>
 
     <!-- Right Info Panel -->
-    <div id="info-panel" role="complementary" aria-label="Информация">
+    <div id="info-panel">
       <div class="panel-header">ИНФОРМАЦИЯ</div>
       <div id="info-content">
         <div class="info-hint">
           <p>Нажмите на трогглита,<br>чтобы увидеть<br>его историю.</p>
         </div>
       </div>
-
       <div class="event-log">
         <div class="panel-header small">СОБЫТИЯ МИРА</div>
-        <div id="event-list" aria-live="polite"></div>
+        <div id="event-list"></div>
       </div>
     </div>
 
     <!-- Bottom Bar -->
     <div id="bottom-bar">
-      <div class="coords-display">
-        X: <span id="cursor-x">—</span> &nbsp; Y: <span id="cursor-y">—</span>
-      </div>
-      <div class="biome-display">
-        <span id="biome-name">—</span>
-      </div>
+      <div class="coords-display">X: <span id="cursor-x">—</span> &nbsp;Z: <span id="cursor-y">—</span></div>
+      <div class="biome-display"><span id="biome-name">—</span></div>
       <div class="zoom-display">
-        <button id="btn-zoom-out" class="zoom-btn" title="Уменьшить">−</button>
-        <span id="zoom-value">100%</span>
-        <button id="btn-zoom-in" class="zoom-btn" title="Увеличить">+</button>
+        <button id="btn-zoom-out" class="zoom-btn">−</button>
+        <span id="zoom-value">140%</span>
+        <button id="btn-zoom-in" class="zoom-btn">+</button>
       </div>
     </div>
 
   </div><!-- #game-ui -->
 
-  <!-- Scripts -->
   <script src="src/config.js"></script>
   <script src="src/noise.js"></script>
   <script src="src/world.js"></script>

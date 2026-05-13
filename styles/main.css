@@ -428,55 +428,65 @@ html, body {
 .tool-btn.disaster:hover { border-color: var(--accent-red); }
 .tool-btn.disaster.active { border-color: var(--accent-red); background: rgba(255,68,68,0.15); }
 
-/* Tool icons as colored squares (matching game tiles) */
-.tool-icon { width: 22px; height: 22px; border-radius: 2px; image-rendering: pixelated; }
-.tool-icon.grass { background: linear-gradient(180deg, #3a7a28 40%, #6b4428 40%); }
-.tool-icon.stone { background: #6e6e6e; }
-.tool-icon.dirt  { background: #6b4428; }
-.tool-icon.sand  { background: #c4a85a; }
-.tool-icon.water { background: #1a5cbf; animation: waterShimmer 2s ease-in-out infinite; }
-.tool-icon.lava  { background: #c43800; animation: lavaGlow 1.5s ease-in-out infinite; }
-.tool-icon.erase {
-  background: transparent;
-  color: var(--text-dim);
-  font-size: 14px;
-  font-weight: bold;
-  border: 1px dashed var(--border);
-  width: 22px; height: 22px;
-  display: flex; align-items: center; justify-content: center;
+/* Tool icons */
+.tool-icon {
+  width: 22px; height: 22px; border-radius: 3px;
+  image-rendering: pixelated;
 }
-.tool-icon.troglyte {
-  background: #4a5860;
-  position: relative;
-}
-.tool-icon.troglyte::after {
-  content: ''; position: absolute;
-  width: 8px; height: 6px;
-  background: #88ffaa;
-  top: 4px; left: 7px;
-  border-radius: 50%;
-  box-shadow: 0 0 4px #88ffaa;
-}
-.tool-icon.elder {
-  background: #4a5860;
-  border-top: 2px solid #ffd700;
-}
-.tool-icon.meteor, .tool-icon.lightning, .tool-icon.rain,
-.tool-icon.earthquake, .tool-icon.fire-tool, .tool-icon.heal {
+.water-icon { background: #2a7adf; animation: waterShimmer 2s ease-in-out infinite; }
+.lava-icon  { background: #e04800; animation: lavaGlow 1.5s ease-in-out infinite; box-shadow: 0 0 4px rgba(220,80,0,0.4); }
+
+.tool-icon.erase,
+.tool-icon.terrain-up,
+.tool-icon.terrain-down,
+.tool-icon.emoji-icon {
   background: transparent;
   color: var(--text);
-  font-size: 16px;
-  width: 22px; height: 22px;
+  font-size: 15px;
   display: flex; align-items: center; justify-content: center;
+  border: none;
+}
+.tool-icon.erase { color: var(--text-dim); font-size: 13px; border: 1px dashed var(--border); }
+.tool-icon.terrain-up   { color: #88ffcc; font-size: 14px; }
+.tool-icon.terrain-down { color: #ff8888; font-size: 14px; }
+
+.troglyte-icon {
+  background: linear-gradient(180deg, #8aa0a8 0%, #8aa0a8 60%, #3a2820 60%);
+  position: relative; border-radius: 3px;
+}
+.troglyte-icon::before {
+  content: '';
+  position: absolute;
+  width: 7px; height: 5px;
+  background: #88ffaa;
+  top: 3px; left: 50%; transform: translateX(-50%);
+  border-radius: 50%;
+  box-shadow: 0 0 5px #88ffaa;
+}
+
+.elder-icon {
+  background: linear-gradient(180deg, #8aa0a8 0%, #8aa0a8 60%, #3a2820 60%);
+  position: relative; border-radius: 3px;
+  border-top: 2px solid #ffd700;
+  box-shadow: 0 -2px 6px rgba(255,215,0,0.4);
+}
+.elder-icon::before {
+  content: '';
+  position: absolute;
+  width: 7px; height: 5px;
+  background: #ffd700;
+  top: 4px; left: 50%; transform: translateX(-50%);
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ffd700;
 }
 
 @keyframes waterShimmer {
-  0%, 100% { background: #1a5cbf; }
-  50% { background: #2a6cdf; }
+  0%, 100% { background: #2a7adf; }
+  50% { background: #3a8aef; box-shadow: 0 0 6px rgba(60,140,240,0.4); }
 }
 @keyframes lavaGlow {
-  0%, 100% { background: #c43800; box-shadow: 0 0 4px rgba(200, 80, 0, 0.5); }
-  50% { background: #e04800; box-shadow: 0 0 10px rgba(220, 100, 0, 0.8); }
+  0%, 100% { background: #c43800; }
+  50% { background: #e04800; box-shadow: 0 0 12px rgba(220,80,0,0.7); }
 }
 
 /* Mana */

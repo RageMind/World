@@ -1,20 +1,12 @@
-const PT = {
-  FIRE: 'fire', SPARK: 'spark', SMOKE: 'smoke',
-  MAGIC: 'magic', RAIN: 'rain', EXPLOSION: 'explosion',
-  DUST: 'dust', HEAL: 'heal', LIGHTNING: 'lightning',
-  METEOR: 'meteor', BLOOD: 'blood', STAR: 'star'
-};
-
 class Particle {
-  constructor(x, y, type) {
-    this.x = x; this.y = y;
+  constructor(x, z, elevation, type) {
+    this.x = x; this.z = z; this.elev = elevation;
     this.type = type;
-    this.life = 1.0;
-    this.vx = 0; this.vy = 0;
-    this.size = 2;
+    this.life  = 1.0;
+    this.vx = 0; this.vy = 0; this.vz = 0; // vy = vertical (up)
+    this.size  = 2;
     this.color = '#fff';
-    this.decay = 0.02;
-    this.alpha = 1;
+    this.decay = 0.025;
     this._init(type);
   }
 
@@ -22,112 +14,76 @@ class Particle {
     const rnd = () => (Math.random() - 0.5) * 2;
     switch (type) {
       case PT.FIRE:
-        this.vx = rnd() * 0.3;
-        this.vy = -(0.3 + Math.random() * 0.5);
-        this.size = 2 + Math.random() * 3;
+        this.vx = rnd() * 0.04; this.vz = rnd() * 0.04; this.vy = 0.06 + Math.random() * 0.06;
+        this.size  = 2 + Math.random() * 3;
         this.color = Math.random() < 0.5 ? '#ff8800' : '#ffcc00';
-        this.decay = 0.025 + Math.random() * 0.02;
+        this.decay = 0.028 + Math.random() * 0.02;
         break;
       case PT.SPARK:
-        this.vx = rnd() * 1.5;
-        this.vy = -Math.random() * 1.5;
-        this.size = 1.5;
-        this.color = '#ffdd44';
-        this.decay = 0.04;
+        this.vx = rnd() * 0.12; this.vz = rnd() * 0.12; this.vy = 0.1 + Math.random() * 0.1;
+        this.size  = 1.5; this.color = '#ffee44'; this.decay = 0.045;
         break;
       case PT.SMOKE:
-        this.vx = rnd() * 0.2;
-        this.vy = -(0.1 + Math.random() * 0.2);
-        this.size = 3 + Math.random() * 4;
-        this.color = '#667788';
-        this.decay = 0.01;
+        this.vx = rnd() * 0.02; this.vz = rnd() * 0.02; this.vy = 0.02 + Math.random() * 0.02;
+        this.size  = 4 + Math.random() * 4; this.color = '#607080'; this.decay = 0.01;
         break;
       case PT.MAGIC:
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 0.5 + Math.random() * 1;
-        this.vx = Math.cos(angle) * speed;
-        this.vy = Math.sin(angle) * speed;
-        this.size = 2 + Math.random() * 2;
-        const cols = ['#8844ff', '#44aaff', '#ff44aa', '#44ffcc', '#ffcc44'];
-        this.color = cols[Math.floor(Math.random() * cols.length)];
-        this.decay = 0.02 + Math.random() * 0.02;
+        const a = Math.random() * Math.PI * 2, sp = 0.04 + Math.random() * 0.08;
+        this.vx = Math.cos(a) * sp; this.vz = Math.sin(a) * sp; this.vy = 0.03 + Math.random() * 0.04;
+        this.size  = 2 + Math.random() * 2;
+        const mc = ['#8844ff','#44aaff','#ff44aa','#44ffcc','#ffcc44'];
+        this.color = mc[Math.floor(Math.random() * mc.length)];
+        this.decay = 0.02 + Math.random() * 0.015;
         break;
       case PT.RAIN:
-        this.vx = -0.1 + Math.random() * 0.2;
-        this.vy = 1.5 + Math.random() * 1.5;
-        this.size = 1;
-        this.color = '#4488cc';
-        this.decay = 0.04;
+        this.vx = 0; this.vz = 0; this.vy = -0.12;
+        this.size = 1; this.color = '#5599dd'; this.decay = 0.06;
         break;
       case PT.EXPLOSION:
-        const ea = Math.random() * Math.PI * 2;
-        const es = 2 + Math.random() * 4;
-        this.vx = Math.cos(ea) * es;
-        this.vy = Math.sin(ea) * es;
-        this.size = 3 + Math.random() * 5;
+        const ea = Math.random() * Math.PI * 2, es = 0.1 + Math.random() * 0.3;
+        this.vx = Math.cos(ea) * es; this.vz = Math.sin(ea) * es; this.vy = 0.08 + Math.random() * 0.15;
+        this.size  = 3 + Math.random() * 5;
         this.color = Math.random() < 0.5 ? '#ff6600' : (Math.random() < 0.5 ? '#ffcc00' : '#ff2200');
         this.decay = 0.03;
         break;
       case PT.DUST:
-        this.vx = rnd() * 0.8;
-        this.vy = -Math.random() * 0.5;
-        this.size = 2;
-        this.color = '#998877';
-        this.decay = 0.03;
+        this.vx = rnd() * 0.06; this.vz = rnd() * 0.06; this.vy = 0.02 + Math.random() * 0.03;
+        this.size = 2; this.color = '#998877'; this.decay = 0.035;
         break;
       case PT.HEAL:
-        this.vx = rnd() * 0.3;
-        this.vy = -(0.2 + Math.random() * 0.3);
-        this.size = 2 + Math.random() * 2;
+        this.vx = rnd() * 0.03; this.vz = rnd() * 0.03; this.vy = 0.04 + Math.random() * 0.04;
+        this.size  = 2 + Math.random() * 2;
         this.color = Math.random() < 0.5 ? '#44ff88' : '#88ffcc';
-        this.decay = 0.015;
+        this.decay = 0.018;
         break;
       case PT.LIGHTNING:
-        this.vx = rnd() * 0.5;
-        this.vy = rnd() * 0.5;
-        this.size = 1 + Math.random() * 2;
-        this.color = '#aaccff';
-        this.decay = 0.06;
-        break;
-      case PT.METEOR:
-        this.vx = 2 + Math.random() * 2;
-        this.vy = 2 + Math.random() * 2;
-        this.size = 4 + Math.random() * 3;
-        this.color = Math.random() < 0.5 ? '#ff8800' : '#ffaa00';
-        this.decay = 0.025;
+        this.vx = rnd() * 0.06; this.vz = rnd() * 0.06; this.vy = rnd() * 0.06;
+        this.size = 1.5; this.color = '#aaddff'; this.decay = 0.07;
         break;
       case PT.BLOOD:
-        this.vx = rnd() * 1;
-        this.vy = -(0.3 + Math.random() * 0.8);
-        this.size = 1.5;
-        this.color = '#cc0022';
-        this.decay = 0.04;
+        this.vx = rnd() * 0.08; this.vz = rnd() * 0.08; this.vy = 0.04 + Math.random() * 0.06;
+        this.size = 1.5; this.color = '#cc0022'; this.decay = 0.04;
         break;
-      case PT.STAR:
-        this.vx = rnd() * 0.1;
-        this.vy = rnd() * 0.1;
-        this.size = 1 + Math.random() * 2;
-        this.color = '#ffffcc';
-        this.decay = 0.005;
+      case PT.LEAF:
+        this.vx = rnd() * 0.04; this.vz = rnd() * 0.04; this.vy = -0.01 - Math.random() * 0.02;
+        this.size = 1.5; this.color = Math.random() < 0.5 ? '#3a9020' : '#4aaa28'; this.decay = 0.012;
+        break;
+      case PT.SNOWFLAKE:
+        this.vx = rnd() * 0.02; this.vz = rnd() * 0.02; this.vy = -0.02 - Math.random() * 0.02;
+        this.size = 1.5; this.color = '#d8eeff'; this.decay = 0.01;
         break;
     }
   }
 
   update() {
-    this.x += this.vx;
-    this.y += this.vy;
+    this.x += this.vx; this.z += this.vz; this.elev += this.vy;
     this.life -= this.decay;
-    this.alpha = Math.max(0, this.life);
-
     switch (this.type) {
-      case PT.FIRE:   this.vy -= 0.01; this.vx *= 0.95; break;
-      case PT.SMOKE:  this.size += 0.05; this.vx *= 0.98; break;
-      case PT.MAGIC:  this.vx *= 0.92; this.vy *= 0.92; break;
-      case PT.RAIN:   this.vy += 0.05; break;
-      case PT.EXPLOSION: this.vx *= 0.92; this.vy *= 0.92; this.vy += 0.05; break;
-      case PT.DUST:   this.vx *= 0.9; this.vy += 0.01; break;
-      case PT.BLOOD:  this.vy += 0.05; this.vx *= 0.95; break;
-      case PT.SPARK:  this.vy += 0.06; this.vx *= 0.9; break;
+      case PT.FIRE:      this.vy += 0.001; this.vx *= 0.96; this.vz *= 0.96; break;
+      case PT.SMOKE:     this.size += 0.06; this.vx *= 0.98; this.vz *= 0.98; break;
+      case PT.EXPLOSION: this.vx *= 0.92; this.vz *= 0.92; this.vy -= 0.01; break;
+      case PT.BLOOD:     this.vy -= 0.008; break;
+      case PT.SPARK:     this.vy -= 0.012; break;
     }
   }
 
@@ -135,24 +91,19 @@ class Particle {
 }
 
 class ParticleSystem {
-  constructor() {
-    this.particles = [];
-  }
+  constructor() { this.particles = []; }
 
-  emit(type, x, y, count = 1) {
-    const available = CFG.MAX_PARTICLES - this.particles.length;
-    const actual = Math.min(count, available);
-    for (let i = 0; i < actual; i++) {
+  emit(type, x, z, elev = 0, count = 1) {
+    const avail = CFG.MAX_PARTICLES - this.particles.length;
+    const n = Math.min(count, avail);
+    for (let i = 0; i < n; i++) {
       this.particles.push(new Particle(
-        x + (Math.random() - 0.5) * 0.5,
-        y + (Math.random() - 0.5) * 0.5,
+        x + (Math.random() - 0.5) * 0.4,
+        z + (Math.random() - 0.5) * 0.4,
+        elev + (Math.random() - 0.5) * 0.2,
         type
       ));
     }
-  }
-
-  emitBurst(type, x, y, count) {
-    this.emit(type, x, y, count);
   }
 
   update() {
@@ -160,14 +111,5 @@ class ParticleSystem {
       this.particles[i].update();
       if (this.particles[i].isDead()) this.particles.splice(i, 1);
     }
-  }
-
-  // Continuous emitters (call every frame for fire tiles etc.)
-  emitFireTile(wx, wy, tileSize, camX, camY, zoom) {
-    if (Math.random() > 0.5) return;
-    const sx = (wx - camX) * tileSize * zoom + tileSize * 0.5;
-    const sy = (wy - camY) * tileSize * zoom + tileSize * 0.5;
-    this.emit(PT.FIRE, wx, wy - 0.2);
-    if (Math.random() < 0.2) this.emit(PT.SMOKE, wx, wy - 0.5);
   }
 }
