@@ -86,8 +86,8 @@
       }
 
       const moving=ch.mode==='walk';
-      ch.hunger=clamp(ch.hunger-dt*(moving?.72:.42),0,100);
-      ch.energy=clamp(ch.energy-dt*(moving?.55:.22),0,100);
+      ch.hunger=clamp(ch.hunger-dt*(moving?0.72:0.42),0,100);
+      ch.energy=clamp(ch.energy-dt*(moving?0.55:0.22),0,100);
       if(ch.hunger<=0)ch.health=clamp(ch.health-dt*2.2,0,100);
       else if(ch.hunger>70&&ch.energy>55)ch.health=clamp(ch.health+dt*.25,0,100);
 
