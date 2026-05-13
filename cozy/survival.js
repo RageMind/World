@@ -1,9 +1,8 @@
 // YourWill survival layer
-// Safe overlay over current visual prototype. Do not replace main renderer here.
+// Safe overlay over current visual prototype. Does not draw debug UI.
 (function(){
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
   const names=['Alina','Miro','Torn','Nora'];
-  let survivalMessage='SURVIVAL ON';
   const camp=()=>structures.find(o=>o.kind==='camp')||{x:12.15,y:10.45,kind:'camp'};
 
   function initNeed(ch,i){
@@ -57,44 +56,9 @@
     chooseWander(ch,i);
   }
 
-  function infoText(ch){
+  window.ywSurvivalInfo=function(ch){
     const state=ch.health<=0?'без сил':ch.need==='forage'?'ищет еду':ch.need==='rest'?'отдыхает':ch.need==='hungry'?'голоден':ch.mode==='walk'?'идёт':'стоит';
     return `${ch.name||'Villager'}: ${state} · еда ${Math.round(ch.hunger)}/100 · энергия ${Math.round(ch.energy)}/100 · здоровье ${Math.round(ch.health)}/100`;
-  }
-
-  function showInfo(ch){
-    const text=infoText(ch);
-    survivalMessage=text;
-    setCard(ch.name||'Villager',text);
-  }
-
-  const oldSelect=selectAt;
-  selectAt=function(clientX,clientY){
-    if(currentTool!=='hand')return;
-    const p=invIso(clientX*DPR,clientY*DPR);
-    let best=null,dist=1e9;
-    for(let i=0;i<chars.length;i++){
-      const ch=chars[i],d=Math.hypot(ch.x-p.x,ch.y-p.y);
-      if(d<1.25&&d<dist){best=ch;dist=d;}
-    }
-    if(best){showInfo(best);return;}
-    survivalMessage='Hand: ничего не выбрано';
-    oldSelect(clientX,clientY);
-  };
-
-  const oldDraw=draw;
-  draw=function(){
-    oldDraw();
-    ctx.save();
-    ctx.setTransform(1,0,0,1,0,0);
-    const pad=10*DPR;
-    const y=62*DPR;
-    ctx.fillStyle='rgba(9,25,20,.78)';
-    ctx.fillRect(pad,y,Math.min(canvas.width-pad*2,390*DPR),28*DPR);
-    ctx.fillStyle='#d9ff9b';
-    ctx.font=(12*DPR)+'px system-ui, sans-serif';
-    ctx.fillText(survivalMessage,pad+10*DPR,y+19*DPR);
-    ctx.restore();
   };
 
   updatePeople=function(dt){
@@ -139,7 +103,6 @@
               ch.hunger=clamp(ch.hunger+38,0,100);
               flora.splice(flora.indexOf(ch.targetObj),1);
               sortStatic();
-              survivalMessage=(ch.name||'Villager')+' собрал ягоды и поел';
               setCard(ch.name||'Villager','Собрал ягоды и поел. Еда '+Math.round(ch.hunger)+'/100.');
               ch.wait=25+rnd(0,35,i,t);
               chooseNeed(ch,i);
@@ -166,6 +129,4 @@
   };
 
   chars.forEach(initNeed);
-  survivalMessage='SURVIVAL ON · нажми Hand по жителю';
-  setCard('Survival','Жители теперь голодают, устают, отдыхают у костра и ищут ягоды.');
 })();
