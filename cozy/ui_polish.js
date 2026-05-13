@@ -1,5 +1,5 @@
-// YourWill visual pass 1
-// Safe overlay over current prototype. Branch: cozy-current only.
+// YourWill visual correction layer
+// Branch: cozy-current only. No generated texture drawing for terrain.
 (function(){
   const panel=document.createElement('div');
   panel.id='yw-info-panel';
@@ -8,10 +8,10 @@
 
   const style=document.createElement('style');
   style.textContent=`
-    #yw-info-panel{position:fixed;right:10px;top:106px;z-index:20;width:min(232px,34vw);padding:9px 10px;border-radius:15px;background:rgba(8,24,20,.84);border:1px solid rgba(235,218,156,.28);box-shadow:0 10px 24px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(10px);color:#f7e7b1;font-family:system-ui,-apple-system,Segoe UI,sans-serif;pointer-events:none;opacity:.94}
-    #yw-info-panel .yw-info-title{font-weight:900;font-size:14px;line-height:1.05;margin-bottom:5px;color:#fff4bf;text-shadow:0 2px 0 rgba(0,0,0,.25)}
-    #yw-info-panel .yw-info-body{font-size:10.5px;line-height:1.32;color:#e7ddb6;white-space:pre-line}
-    @media(max-width:700px){#yw-info-panel{top:98px;right:8px;width:34vw;padding:8px 9px}.yw-info-title{font-size:12px!important}.yw-info-body{font-size:9.5px!important}}
+    #yw-info-panel{position:fixed;right:10px;top:106px;z-index:20;width:min(222px,33vw);padding:8px 9px;border-radius:14px;background:rgba(8,24,20,.84);border:1px solid rgba(235,218,156,.28);box-shadow:0 10px 24px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(10px);color:#f7e7b1;font-family:system-ui,-apple-system,Segoe UI,sans-serif;pointer-events:none;opacity:.94}
+    #yw-info-panel .yw-info-title{font-weight:900;font-size:13px;line-height:1.05;margin-bottom:4px;color:#fff4bf;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+    #yw-info-panel .yw-info-body{font-size:10px;line-height:1.28;color:#e7ddb6;white-space:pre-line}
+    @media(max-width:700px){#yw-info-panel{top:98px;right:8px;width:32vw;padding:8px}.yw-info-title{font-size:12px!important}.yw-info-body{font-size:9.2px!important}}
   `;
   document.head.appendChild(style);
 
@@ -24,21 +24,15 @@
 
   const originalDrawTile=drawTile;
   drawTile=function(q){
-    const p=iso(q.x,q.y,q.h);
-    if(q.type==='water'){
-      pathD(p.x,p.y,TW,TH);ctx.fillStyle='#3a9fbb';ctx.fill();
-      ctx.globalAlpha=.18;pathD(p.x,p.y-2,TW*.72,TH*.44);ctx.fillStyle='#8bd6df';ctx.fill();ctx.globalAlpha=.14;
-      ctx.strokeStyle='#d6fbff';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(p.x-20,p.y-3);ctx.quadraticCurveTo(p.x-6,p.y-8,p.x+10,p.y-4);ctx.stroke();ctx.globalAlpha=1;return;
-    }
-    if(q.type==='shore'){
-      pathD(p.x,p.y,TW,TH);ctx.fillStyle='#d4aa61';ctx.fill();
-      ctx.globalAlpha=.42;pathD(p.x,p.y-2,TW*.72,TH*.44);ctx.fillStyle='#ecd07f';ctx.fill();ctx.globalAlpha=.2;
-      ctx.fillStyle='#a87b40';ctx.fillRect(p.x-15,p.y-1,8,2);ctx.fillRect(p.x+7,p.y+4,10,2);ctx.globalAlpha=1;
-      ctx.strokeStyle='rgba(82,58,31,.18)';pathD(p.x,p.y,TW,TH);ctx.stroke();return;
-    }
+    // Terrain must remain from Kenney pack. No custom fake water/sand fill here.
     originalDrawTile(q);
-    if(q.type==='grass'||q.type==='flower'||q.type==='bushTile'){
-      if(((q.x*17+q.y*23)%5)===0){ctx.globalAlpha=.16;pathD(p.x+4,p.y+2,TW*.42,TH*.22);ctx.fillStyle='#8abf54';ctx.fill();ctx.globalAlpha=1}
+    if((q.type==='grass'||q.type==='flower'||q.type==='bushTile')&&((q.x*17+q.y*23)%7)===0){
+      const p=iso(q.x,q.y,q.h);
+      ctx.globalAlpha=.10;
+      pathD(p.x+3,p.y+2,TW*.36,TH*.18);
+      ctx.fillStyle='#8abf54';
+      ctx.fill();
+      ctx.globalAlpha=1;
     }
   };
 
@@ -53,7 +47,7 @@
   selectAt=function(clientX,clientY){if(currentTool!=='hand')return;const sx=clientX*DPR,sy=clientY*DPR;let best=null,dist=1e9,type='';for(const ch of chars){const sp=screenPos(ch.x,ch.y,-8),d=Math.hypot(sp.x-sx,sp.y-sy);if(d<48*DPR&&d<dist){best=ch;dist=d;type='person'}}for(const o of [...structures,...flora]){const sp=screenPos(o.x,o.y,0),r=(o.kind==='tree'?48:o.kind==='camp'?44:o.kind==='bush'?38:30)*DPR,d=Math.hypot(sp.x-sx,sp.y-sy);if(d<r&&d<dist){best=o;dist=d;type='object'}}if(type==='person'){const [a,b]=personInfo(best);setPanel(a,b);setCard(a,b.replace(/\n/g,' '));return}if(type==='object'){const [a,b]=objectInfo(best);setPanel(a,b);setCard(a,b.replace(/\n/g,' '));return}setPanel('Пусто','Нажми ближе к жителю или объекту.')};
 
   const prevDraw=draw;
-  draw=function(){prevDraw();ctx.save();ctx.setTransform(1,0,0,1,0,0);const px=20*DPR,py=76*DPR,w=Math.min(canvas.width-40*DPR,520*DPR),h=32*DPR;ctx.fillStyle='rgba(9,24,20,.86)';ctx.fillRect(px,py,w,h);ctx.strokeStyle='rgba(235,218,156,.22)';ctx.strokeRect(px,py,w,h);ctx.fillStyle='#f2e0a9';ctx.font=(12*DPR)+'px system-ui,sans-serif';ctx.fillText('День 1  ·  2 жителя  ·  ягоды рядом  ·  Hand: выбор объекта',px+12*DPR,py+21*DPR);ctx.restore()};
+  draw=function(){prevDraw();ctx.save();ctx.setTransform(1,0,0,1,0,0);const px=20*DPR,py=74*DPR,w=Math.min(canvas.width-40*DPR,500*DPR),h=28*DPR;ctx.fillStyle='rgba(9,24,20,.76)';ctx.fillRect(px,py,w,h);ctx.strokeStyle='rgba(235,218,156,.18)';ctx.strokeRect(px,py,w,h);ctx.fillStyle='#f2e0a9';ctx.font=(11*DPR)+'px system-ui,sans-serif';ctx.fillText('День 1 · 2 жителя · ягоды рядом · Hand: выбор',px+10*DPR,py+18*DPR);ctx.restore()};
 
   setPanel('Информация','Hand: нажми на жителя, ягоды, дерево, камень или костёр.');
 })();
