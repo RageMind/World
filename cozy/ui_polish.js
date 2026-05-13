@@ -1,5 +1,5 @@
 // YourWill visual correction layer
-// Branch: cozy-current only. No generated texture drawing for terrain.
+// Branch: cozy-current only. Terrain tiles must come from Kenney PNG assets.
 (function(){
   const panel=document.createElement('div');
   panel.id='yw-info-panel';
@@ -22,9 +22,41 @@
   for(const q of tiles){if(q.type!=='water'&&adjacentWater(q.x,q.y)){q.type='shore';q.h=-2}}
   sortStatic();
 
+  // Pick a genuinely sandy Kenney tile by scanning the actual PNG assets.
+  // No custom drawn sand/water is used; this only replaces art.solidShore with a PNG from the pack.
+  (async function forceKenneySand(){
+    try{
+      const base='assets/kenney/isometric-landscape/png/';
+      const files=await fetch('assets/kenney/isometric-landscape/manifest.json?v=sand-scan-1').then(r=>r.json());
+      const names=files.filter(n=>/^landscapeTiles_\d+\.png$/.test(n));
+      const tmp=document.createElement('canvas');
+      const gx=tmp.getContext('2d',{willReadFrequently:true});
+      let bestSand=null,bestWater=null,bestGrass=null;
+      for(const name of names){
+        const img=await new Promise(res=>{const im=new Image();im.onload=()=>res(im);im.onerror=()=>res(null);im.src=base+name+'?v=sand-scan-1'});
+        if(!img||img.height>120)continue;
+        tmp.width=img.width;tmp.height=img.height;gx.clearRect(0,0,tmp.width,tmp.height);gx.drawImage(img,0,0);
+        const d=gx.getImageData(0,0,tmp.width,tmp.height).data;
+        let r=0,g=0,b=0,c=0,alpha=0;
+        for(let i=0;i<d.length;i+=16){if(d[i+3]>30){r+=d[i];g+=d[i+1];b+=d[i+2];c++;alpha+=d[i+3]}}
+        if(!c)continue;r/=c;g/=c;b/=c;
+        const sandScore=(r+g*0.92-b*1.55)-Math.abs(r-g)*0.65;
+        const waterScore=b*1.25+g*.35-r*.75;
+        const grassScore=g*1.2-r*.35-b*.45;
+        if(r>118&&g>95&&b<135&&(!bestSand||sandScore>bestSand.score))bestSand={img,name,score:sandScore};
+        if(b>95&&b>r*.95&&(!bestWater||waterScore>bestWater.score))bestWater={img,name,score:waterScore};
+        if(g>95&&g>b*.95&&g>r*.75&&(!bestGrass||grassScore>bestGrass.score))bestGrass={img,name,score:grassScore};
+      }
+      if(bestSand){art.solidShore=bestSand.img;window.ywSandTile=bestSand.name;}
+      if(bestWater){art.solidWater=bestWater.img;window.ywWaterTile=bestWater.name;}
+      if(bestGrass){art.solidGrass=bestGrass.img;window.ywGrassTile=bestGrass.name;}
+      art.loaded=!!(art.solidGrass&&art.solidWater&&art.solidShore);
+      setPanel('Тайлы Kenney',`Песок: ${window.ywSandTile||'нет'}\nВода: ${window.ywWaterTile||'нет'}\nТрава: ${window.ywGrassTile||'нет'}`);
+    }catch(e){console.warn('Kenney sand scan failed',e)}
+  })();
+
   const originalDrawTile=drawTile;
   drawTile=function(q){
-    // Terrain must remain from Kenney pack. No custom fake water/sand fill here.
     originalDrawTile(q);
     if((q.type==='grass'||q.type==='flower'||q.type==='bushTile')&&((q.x*17+q.y*23)%7)===0){
       const p=iso(q.x,q.y,q.h);
