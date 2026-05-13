@@ -1,0 +1,557 @@
+{
+  "all": [
+    "PNG_Default_(64px)_box.png",
+    "PNG_Default_(64px)_box_treasure.png",
+    "PNG_Default_(64px)_box_wide.png",
+    "PNG_Default_(64px)_cart.png",
+    "PNG_Default_(64px)_cart_horse.png",
+    "PNG_Default_(64px)_cart_top.png",
+    "PNG_Default_(64px)_character_horse.png",
+    "PNG_Default_(64px)_character_man.png",
+    "PNG_Default_(64px)_character_wizard.png",
+    "PNG_Default_(64px)_character_woman.png",
+    "PNG_Default_(64px)_detail_mud.png",
+    "PNG_Default_(64px)_detail_snow.png",
+    "PNG_Default_(64px)_detail_window.png",
+    "PNG_Default_(64px)_detail_windowBlue.png",
+    "PNG_Default_(64px)_detail_windowCastle.png",
+    "PNG_Default_(64px)_detail_windowRed.png",
+    "PNG_Default_(64px)_detail_windowSlit.png",
+    "PNG_Default_(64px)_door.png",
+    "PNG_Default_(64px)_door_glass.png",
+    "PNG_Default_(64px)_door_open.png",
+    "PNG_Default_(64px)_fence_double.png",
+    "PNG_Default_(64px)_fence_doubleGate.png",
+    "PNG_Default_(64px)_fence_single.png",
+    "PNG_Default_(64px)_fence_singleGate.png",
+    "PNG_Default_(64px)_foliageBush_large.png",
+    "PNG_Default_(64px)_foliageBush_small.png",
+    "PNG_Default_(64px)_foliageTree_green.png",
+    "PNG_Default_(64px)_foliageTree_orange.png",
+    "PNG_Default_(64px)_foliageTree_red.png",
+    "PNG_Default_(64px)_gravel_brown.png",
+    "PNG_Default_(64px)_gravel_grey.png",
+    "PNG_Default_(64px)_ladder_large.png",
+    "PNG_Default_(64px)_ladder_small.png",
+    "PNG_Default_(64px)_market_roofBlue.png",
+    "PNG_Default_(64px)_market_roofRed.png",
+    "PNG_Default_(64px)_market_stallBlue.png",
+    "PNG_Default_(64px)_market_stallRed.png",
+    "PNG_Default_(64px)_tileBridge.png",
+    "PNG_Default_(64px)_tileBuilding_frame.png",
+    "PNG_Default_(64px)_tileBuilding_roofBlue.png",
+    "PNG_Default_(64px)_tileBuilding_roofBluePoint.png",
+    "PNG_Default_(64px)_tileBuilding_roofBlueSide.png",
+    "PNG_Default_(64px)_tileBuilding_roofRed.png",
+    "PNG_Default_(64px)_tileBuilding_roofRedPoint.png",
+    "PNG_Default_(64px)_tileBuilding_roofRedSide.png",
+    "PNG_Default_(64px)_tileBuilding_sand.png",
+    "PNG_Default_(64px)_tileBuilding_stone.png",
+    "PNG_Default_(64px)_tileCastle.png",
+    "PNG_Default_(64px)_tileCastle_gate.png",
+    "PNG_Default_(64px)_tileCastle_stairs.png",
+    "PNG_Default_(64px)_tileCastle_stairsLeft.png",
+    "PNG_Default_(64px)_tileCastle_stairsRight.png",
+    "PNG_Default_(64px)_tileCastle_top.png",
+    "PNG_Default_(64px)_tileCastle_topRoof.png",
+    "PNG_Default_(64px)_tileDirt.png",
+    "PNG_Default_(64px)_tileDirt_slope.png",
+    "PNG_Default_(64px)_tileDirt_slopeLeft.png",
+    "PNG_Default_(64px)_tileDirt_slopeLeftRound.png",
+    "PNG_Default_(64px)_tileDirt_slopeRight.png",
+    "PNG_Default_(64px)_tileDirt_slopeRightRound.png",
+    "PNG_Default_(64px)_tileGoo.png",
+    "PNG_Default_(64px)_tileGoo_slope.png",
+    "PNG_Default_(64px)_tileGoo_slopeLeft.png",
+    "PNG_Default_(64px)_tileGoo_slopeLeftRound.png",
+    "PNG_Default_(64px)_tileGoo_slopeRight.png",
+    "PNG_Default_(64px)_tileGoo_slopeRightRound.png",
+    "PNG_Default_(64px)_tileGrass.png",
+    "PNG_Default_(64px)_tileGrass_slope.png",
+    "PNG_Default_(64px)_tileGrass_slopeLeft.png",
+    "PNG_Default_(64px)_tileGrass_slopeLeftRound.png",
+    "PNG_Default_(64px)_tileGrass_slopeRight.png",
+    "PNG_Default_(64px)_tileGrass_slopeRightRound.png",
+    "PNG_Default_(64px)_tileLava_1.png",
+    "PNG_Default_(64px)_tileLava_2.png",
+    "PNG_Default_(64px)_tileLava_3.png",
+    "PNG_Default_(64px)_tileLava_4.png",
+    "PNG_Default_(64px)_tileSand.png",
+    "PNG_Default_(64px)_tileSand_slope.png",
+    "PNG_Default_(64px)_tileSand_slopeLeft.png",
+    "PNG_Default_(64px)_tileSand_slopeLeftRound.png",
+    "PNG_Default_(64px)_tileSand_slopeRight.png",
+    "PNG_Default_(64px)_tileSand_slopeRightRound.png",
+    "PNG_Default_(64px)_tileSnow.png",
+    "PNG_Default_(64px)_tileSnow_slope.png",
+    "PNG_Default_(64px)_tileSnow_slopeLeft.png",
+    "PNG_Default_(64px)_tileSnow_slopeLeftRound.png",
+    "PNG_Default_(64px)_tileSnow_slopeRight.png",
+    "PNG_Default_(64px)_tileSnow_slopeRightRound.png",
+    "PNG_Default_(64px)_tileStone.png",
+    "PNG_Default_(64px)_tileStone_slope.png",
+    "PNG_Default_(64px)_tileStone_slopeLeft.png",
+    "PNG_Default_(64px)_tileStone_slopeLeftRound.png",
+    "PNG_Default_(64px)_tileStone_slopeRight.png",
+    "PNG_Default_(64px)_tileStone_slopeRightRound.png",
+    "PNG_Default_(64px)_tileWater_1.png",
+    "PNG_Default_(64px)_tileWater_2.png",
+    "PNG_Default_(64px)_tileWater_3.png",
+    "PNG_Default_(64px)_tileWater_4.png",
+    "PNG_Default_(64px)_tileWood.png",
+    "PNG_Default_(64px)_tileWood_flat.png",
+    "PNG_Double_(128px)_box.png",
+    "PNG_Double_(128px)_box_treasure.png",
+    "PNG_Double_(128px)_box_wide.png",
+    "PNG_Double_(128px)_cart.png",
+    "PNG_Double_(128px)_cart_horse.png",
+    "PNG_Double_(128px)_cart_top.png",
+    "PNG_Double_(128px)_character_horse.png",
+    "PNG_Double_(128px)_character_man.png",
+    "PNG_Double_(128px)_character_wizard.png",
+    "PNG_Double_(128px)_character_woman.png",
+    "PNG_Double_(128px)_detail_mud.png",
+    "PNG_Double_(128px)_detail_snow.png",
+    "PNG_Double_(128px)_detail_window.png",
+    "PNG_Double_(128px)_detail_windowBlue.png",
+    "PNG_Double_(128px)_detail_windowCastle.png",
+    "PNG_Double_(128px)_detail_windowRed.png",
+    "PNG_Double_(128px)_detail_windowSlit.png",
+    "PNG_Double_(128px)_door.png",
+    "PNG_Double_(128px)_door_glass.png",
+    "PNG_Double_(128px)_door_open.png",
+    "PNG_Double_(128px)_fence_double.png",
+    "PNG_Double_(128px)_fence_doubleGate.png",
+    "PNG_Double_(128px)_fence_single.png",
+    "PNG_Double_(128px)_fence_singleGate.png",
+    "PNG_Double_(128px)_foliageBush_large.png",
+    "PNG_Double_(128px)_foliageBush_small.png",
+    "PNG_Double_(128px)_foliageTree_green.png",
+    "PNG_Double_(128px)_foliageTree_orange.png",
+    "PNG_Double_(128px)_foliageTree_red.png",
+    "PNG_Double_(128px)_gravel_brown.png",
+    "PNG_Double_(128px)_gravel_grey.png",
+    "PNG_Double_(128px)_ladder_large.png",
+    "PNG_Double_(128px)_ladder_small.png",
+    "PNG_Double_(128px)_market_roofBlue.png",
+    "PNG_Double_(128px)_market_roofRed.png",
+    "PNG_Double_(128px)_market_stallBlue.png",
+    "PNG_Double_(128px)_market_stallRed.png",
+    "PNG_Double_(128px)_tileBridge.png",
+    "PNG_Double_(128px)_tileBuilding_frame.png",
+    "PNG_Double_(128px)_tileBuilding_roofBlue.png",
+    "PNG_Double_(128px)_tileBuilding_roofBluePoint.png",
+    "PNG_Double_(128px)_tileBuilding_roofBlueSide.png",
+    "PNG_Double_(128px)_tileBuilding_roofRed.png",
+    "PNG_Double_(128px)_tileBuilding_roofRedPoint.png",
+    "PNG_Double_(128px)_tileBuilding_roofRedSide.png",
+    "PNG_Double_(128px)_tileBuilding_sand.png",
+    "PNG_Double_(128px)_tileBuilding_stone.png",
+    "PNG_Double_(128px)_tileCastle.png",
+    "PNG_Double_(128px)_tileCastle_gate.png",
+    "PNG_Double_(128px)_tileCastle_stairs.png",
+    "PNG_Double_(128px)_tileCastle_stairsLeft.png",
+    "PNG_Double_(128px)_tileCastle_stairsRight.png",
+    "PNG_Double_(128px)_tileCastle_top.png",
+    "PNG_Double_(128px)_tileCastle_topRoof.png",
+    "PNG_Double_(128px)_tileDirt.png",
+    "PNG_Double_(128px)_tileDirt_slope.png",
+    "PNG_Double_(128px)_tileDirt_slopeLeft.png",
+    "PNG_Double_(128px)_tileDirt_slopeLeftRound.png",
+    "PNG_Double_(128px)_tileDirt_slopeRight.png",
+    "PNG_Double_(128px)_tileDirt_slopeRightRound.png",
+    "PNG_Double_(128px)_tileGoo.png",
+    "PNG_Double_(128px)_tileGoo_slope.png",
+    "PNG_Double_(128px)_tileGoo_slopeLeft.png",
+    "PNG_Double_(128px)_tileGoo_slopeLeftRound.png",
+    "PNG_Double_(128px)_tileGoo_slopeRight.png",
+    "PNG_Double_(128px)_tileGoo_slopeRightRound.png",
+    "PNG_Double_(128px)_tileGrass.png",
+    "PNG_Double_(128px)_tileGrass_slope.png",
+    "PNG_Double_(128px)_tileGrass_slopeLeft.png",
+    "PNG_Double_(128px)_tileGrass_slopeLeftRound.png",
+    "PNG_Double_(128px)_tileGrass_slopeRight.png",
+    "PNG_Double_(128px)_tileGrass_slopeRightRound.png",
+    "PNG_Double_(128px)_tileLava_1.png",
+    "PNG_Double_(128px)_tileLava_2.png",
+    "PNG_Double_(128px)_tileLava_3.png",
+    "PNG_Double_(128px)_tileLava_4.png",
+    "PNG_Double_(128px)_tileSand.png",
+    "PNG_Double_(128px)_tileSand_slope.png",
+    "PNG_Double_(128px)_tileSand_slopeLeft.png",
+    "PNG_Double_(128px)_tileSand_slopeLeftRound.png",
+    "PNG_Double_(128px)_tileSand_slopeRight.png",
+    "PNG_Double_(128px)_tileSand_slopeRightRound.png",
+    "PNG_Double_(128px)_tileSnow.png",
+    "PNG_Double_(128px)_tileSnow_slope.png",
+    "PNG_Double_(128px)_tileSnow_slopeLeft.png",
+    "PNG_Double_(128px)_tileSnow_slopeLeftRound.png",
+    "PNG_Double_(128px)_tileSnow_slopeRight.png",
+    "PNG_Double_(128px)_tileSnow_slopeRightRound.png",
+    "PNG_Double_(128px)_tileStone.png",
+    "PNG_Double_(128px)_tileStone_slope.png",
+    "PNG_Double_(128px)_tileStone_slopeLeft.png",
+    "PNG_Double_(128px)_tileStone_slopeLeftRound.png",
+    "PNG_Double_(128px)_tileStone_slopeRight.png",
+    "PNG_Double_(128px)_tileStone_slopeRightRound.png",
+    "PNG_Double_(128px)_tileWater_1.png",
+    "PNG_Double_(128px)_tileWater_2.png",
+    "PNG_Double_(128px)_tileWater_3.png",
+    "PNG_Double_(128px)_tileWater_4.png",
+    "PNG_Double_(128px)_tileWood.png",
+    "PNG_Double_(128px)_tileWood_flat.png",
+    "Preview.png",
+    "Sample.png",
+    "Spritesheet_blockPack_spritesheet.png",
+    "Spritesheet_blockPack_spritesheet@2.png",
+    "Tilesheet_blockPack_tilesheet.png",
+    "Tilesheet_blockPack_tilesheet@2.png"
+  ],
+  "houses": [
+    {
+      "file": "PNG_Default_(64px)_detail_windowCastle.png",
+      "w": 16,
+      "h": 24
+    },
+    {
+      "file": "PNG_Default_(64px)_market_roofBlue.png",
+      "w": 64,
+      "h": 48
+    },
+    {
+      "file": "PNG_Default_(64px)_market_roofRed.png",
+      "w": 64,
+      "h": 48
+    },
+    {
+      "file": "PNG_Default_(64px)_tileBuilding_frame.png",
+      "w": 64,
+      "h": 74
+    },
+    {
+      "file": "PNG_Default_(64px)_tileBuilding_roofBlue.png",
+      "w": 64,
+      "h": 74
+    },
+    {
+      "file": "PNG_Default_(64px)_tileBuilding_roofBluePoint.png",
+      "w": 64,
+      "h": 64
+    },
+    {
+      "file": "PNG_Default_(64px)_tileBuilding_roofBlueSide.png",
+      "w": 64,
+      "h": 64
+    },
+    {
+      "file": "PNG_Default_(64px)_tileBuilding_roofRed.png",
+      "w": 64,
+      "h": 74
+    },
+    {
+      "file": "PNG_Default_(64px)_tileBuilding_roofRedPoint.png",
+      "w": 64,
+      "h": 64
+    },
+    {
+      "file": "PNG_Default_(64px)_tileBuilding_roofRedSide.png",
+      "w": 64,
+      "h": 64
+    },
+    {
+      "file": "PNG_Default_(64px)_tileBuilding_sand.png",
+      "w": 64,
+      "h": 74
+    },
+    {
+      "file": "PNG_Default_(64px)_tileBuilding_stone.png",
+      "w": 64,
+      "h": 74
+    },
+    {
+      "file": "PNG_Default_(64px)_tileCastle.png",
+      "w": 64,
+      "h": 74
+    },
+    {
+      "file": "PNG_Default_(64px)_tileCastle_gate.png",
+      "w": 64,
+      "h": 74
+    },
+    {
+      "file": "PNG_Default_(64px)_tileCastle_stairs.png",
+      "w": 64,
+      "h": 74
+    },
+    {
+      "file": "PNG_Default_(64px)_tileCastle_stairsLeft.png",
+      "w": 64,
+      "h": 74
+    },
+    {
+      "file": "PNG_Default_(64px)_tileCastle_stairsRight.png",
+      "w": 64,
+      "h": 74
+    },
+    {
+      "file": "PNG_Default_(64px)_tileCastle_top.png",
+      "w": 64,
+      "h": 52
+    },
+    {
+      "file": "PNG_Default_(64px)_tileCastle_topRoof.png",
+      "w": 64,
+      "h": 52
+    },
+    {
+      "file": "PNG_Double_(128px)_detail_windowCastle.png",
+      "w": 32,
+      "h": 48
+    },
+    {
+      "file": "PNG_Double_(128px)_market_roofBlue.png",
+      "w": 128,
+      "h": 96
+    },
+    {
+      "file": "PNG_Double_(128px)_market_roofRed.png",
+      "w": 128,
+      "h": 96
+    },
+    {
+      "file": "PNG_Double_(128px)_tileBuilding_frame.png",
+      "w": 128,
+      "h": 148
+    },
+    {
+      "file": "PNG_Double_(128px)_tileBuilding_roofBlue.png",
+      "w": 128,
+      "h": 148
+    },
+    {
+      "file": "PNG_Double_(128px)_tileBuilding_roofBluePoint.png",
+      "w": 128,
+      "h": 128
+    },
+    {
+      "file": "PNG_Double_(128px)_tileBuilding_roofBlueSide.png",
+      "w": 128,
+      "h": 128
+    },
+    {
+      "file": "PNG_Double_(128px)_tileBuilding_roofRed.png",
+      "w": 128,
+      "h": 148
+    },
+    {
+      "file": "PNG_Double_(128px)_tileBuilding_roofRedPoint.png",
+      "w": 128,
+      "h": 128
+    },
+    {
+      "file": "PNG_Double_(128px)_tileBuilding_roofRedSide.png",
+      "w": 128,
+      "h": 128
+    },
+    {
+      "file": "PNG_Double_(128px)_tileBuilding_sand.png",
+      "w": 128,
+      "h": 148
+    },
+    {
+      "file": "PNG_Double_(128px)_tileBuilding_stone.png",
+      "w": 128,
+      "h": 148
+    },
+    {
+      "file": "PNG_Double_(128px)_tileCastle.png",
+      "w": 128,
+      "h": 148
+    },
+    {
+      "file": "PNG_Double_(128px)_tileCastle_gate.png",
+      "w": 128,
+      "h": 148
+    },
+    {
+      "file": "PNG_Double_(128px)_tileCastle_stairs.png",
+      "w": 128,
+      "h": 148
+    },
+    {
+      "file": "PNG_Double_(128px)_tileCastle_stairsLeft.png",
+      "w": 128,
+      "h": 148
+    },
+    {
+      "file": "PNG_Double_(128px)_tileCastle_stairsRight.png",
+      "w": 128,
+      "h": 148
+    },
+    {
+      "file": "PNG_Double_(128px)_tileCastle_top.png",
+      "w": 128,
+      "h": 104
+    },
+    {
+      "file": "PNG_Double_(128px)_tileCastle_topRoof.png",
+      "w": 128,
+      "h": 104
+    }
+  ],
+  "people": [
+    {
+      "file": "PNG_Default_(64px)_character_horse.png",
+      "w": 32,
+      "h": 34
+    },
+    {
+      "file": "PNG_Default_(64px)_character_man.png",
+      "w": 16,
+      "h": 25
+    },
+    {
+      "file": "PNG_Default_(64px)_character_wizard.png",
+      "w": 16,
+      "h": 25
+    },
+    {
+      "file": "PNG_Default_(64px)_character_woman.png",
+      "w": 16,
+      "h": 26
+    },
+    {
+      "file": "PNG_Double_(128px)_character_horse.png",
+      "w": 64,
+      "h": 68
+    },
+    {
+      "file": "PNG_Double_(128px)_character_man.png",
+      "w": 32,
+      "h": 50
+    },
+    {
+      "file": "PNG_Double_(128px)_character_wizard.png",
+      "w": 32,
+      "h": 50
+    },
+    {
+      "file": "PNG_Double_(128px)_character_woman.png",
+      "w": 32,
+      "h": 52
+    }
+  ],
+  "camps": [],
+  "props": [
+    {
+      "file": "PNG_Default_(64px)_fence_double.png",
+      "w": 64,
+      "h": 24
+    },
+    {
+      "file": "PNG_Default_(64px)_fence_doubleGate.png",
+      "w": 64,
+      "h": 24
+    },
+    {
+      "file": "PNG_Default_(64px)_fence_single.png",
+      "w": 64,
+      "h": 24
+    },
+    {
+      "file": "PNG_Default_(64px)_fence_singleGate.png",
+      "w": 64,
+      "h": 24
+    },
+    {
+      "file": "PNG_Default_(64px)_foliageBush_large.png",
+      "w": 32,
+      "h": 26
+    },
+    {
+      "file": "PNG_Default_(64px)_foliageBush_small.png",
+      "w": 18,
+      "h": 16
+    },
+    {
+      "file": "PNG_Default_(64px)_foliageTree_green.png",
+      "w": 29,
+      "h": 90
+    },
+    {
+      "file": "PNG_Default_(64px)_foliageTree_orange.png",
+      "w": 34,
+      "h": 91
+    },
+    {
+      "file": "PNG_Default_(64px)_foliageTree_red.png",
+      "w": 28,
+      "h": 90
+    },
+    {
+      "file": "PNG_Default_(64px)_tileWood.png",
+      "w": 64,
+      "h": 74
+    },
+    {
+      "file": "PNG_Default_(64px)_tileWood_flat.png",
+      "w": 64,
+      "h": 53
+    },
+    {
+      "file": "PNG_Double_(128px)_fence_double.png",
+      "w": 128,
+      "h": 48
+    },
+    {
+      "file": "PNG_Double_(128px)_fence_doubleGate.png",
+      "w": 128,
+      "h": 48
+    },
+    {
+      "file": "PNG_Double_(128px)_fence_single.png",
+      "w": 128,
+      "h": 48
+    },
+    {
+      "file": "PNG_Double_(128px)_fence_singleGate.png",
+      "w": 128,
+      "h": 48
+    },
+    {
+      "file": "PNG_Double_(128px)_foliageBush_large.png",
+      "w": 64,
+      "h": 52
+    },
+    {
+      "file": "PNG_Double_(128px)_foliageBush_small.png",
+      "w": 36,
+      "h": 32
+    },
+    {
+      "file": "PNG_Double_(128px)_foliageTree_green.png",
+      "w": 58,
+      "h": 180
+    },
+    {
+      "file": "PNG_Double_(128px)_foliageTree_orange.png",
+      "w": 66,
+      "h": 181
+    },
+    {
+      "file": "PNG_Double_(128px)_foliageTree_red.png",
+      "w": 54,
+      "h": 180
+    },
+    {
+      "file": "PNG_Double_(128px)_tileWood.png",
+      "w": 128,
+      "h": 148
+    },
+    {
+      "file": "PNG_Double_(128px)_tileWood_flat.png",
+      "w": 128,
+      "h": 106
+    }
+  ]
+}

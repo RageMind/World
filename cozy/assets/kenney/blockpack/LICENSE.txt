@@ -1,0 +1,6 @@
+Kenney Block Pack
+Source: https://kenney.nl/assets/block-pack
+Mirror used for automated download: https://opengameart.org/content/block-pack
+License: Creative Commons CC0
+Author: Kenney
+Attribution is not required, but appreciated.
