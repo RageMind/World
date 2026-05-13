@@ -4,19 +4,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
   <meta name="theme-color" content="#10231f">
-  <title>YourWill Cozy Concept Game</title>
+  <title>YourWill Cozy Sandbox</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <canvas id="game"></canvas>
   <div class="topbar">
-    <div class="brand"><strong>YourWill</strong><span>living world sandbox</span></div>
-    <div class="res"><b>People</b><span id="people">8</span><b>Food</b><span>23</span><b>Wood</b><span>40</span><b>Stone</b><span>15</span></div>
+    <div class="brand"><strong>YourWill</strong><span id="phase">living world sandbox</span></div>
+    <div class="res">
+      <b>People</b><span id="people">2</span>
+      <b>Food</b><span id="food">8</span>
+      <b>Wood</b><span id="wood">4</span>
+      <b>Stone</b><span id="stone">2</span>
+      <b>Day</b><span id="day">1</span>
+    </div>
   </div>
   <div class="toolbar">
-    <button class="active">Hand</button><button>Nature</button><button>Home</button><button>Fire</button><button>Water</button><button>Fast</button>
+    <button class="active" data-tool="hand">Hand</button>
+    <button data-tool="nature">Nature</button>
+    <button data-tool="home">Home</button>
+    <button data-tool="fire">Fire</button>
+    <button data-tool="water">Water</button>
+    <button data-tool="fast">x1</button>
   </div>
-  <div class="card"><div class="face"></div><div><b>Alina</b><span>Gatherer - happy</span><i></i><i></i><i></i></div></div>
+  <div class="card"><div class="face"></div><div><b id="card-title">Camp</b><span id="card-text">Tap tools to shape the world</span><i></i><i></i><i></i></div></div>
   <script src="main.js"></script>
 </body>
 </html>
