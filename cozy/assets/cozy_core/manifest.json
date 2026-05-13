@@ -1,0 +1,17 @@
+{
+  "houses": [
+    "house_01.png",
+    "house_02.png"
+  ],
+  "campfires": [
+    "campfire.png"
+  ],
+  "people": [
+    "person_01.png",
+    "person_02.png",
+    "person_03.png",
+    "person_04.png",
+    "person_05.png",
+    "person_06.png"
+  ]
+}
