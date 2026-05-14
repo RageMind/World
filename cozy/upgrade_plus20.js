@@ -1,10 +1,10 @@
-// YourWill quality pass v4
-// Branch: cozy-current only. Fixes missing beach, removes duplicate HUD, keeps work animations.
+// YourWill quality pass v5
+// Branch: cozy-current only. Real visible sand layer drawn after terrain before objects.
 (function(){
   const fx=[];
   window.ywFx=fx;
   let selected=null;
-  let qualityMsg='работы включены';
+  let qualityMsg='берег v5';
   const assigned=new WeakMap();
 
   const style=document.createElement('style');
@@ -20,25 +20,42 @@
   function nearest(ch,list,filter){let best=null,bd=999;for(const o of list){if(filter&&!filter(o))continue;if(assigned.get(o)&&assigned.get(o)!==ch)continue;const d=dd(ch,o);if(d<bd){bd=d;best=o}}return best}
   function target(ch,o,job){if(ch.jobObj)assigned.delete(ch.jobObj);ch.targetX=o.x;ch.targetY=o.y;ch.jobObj=o;ch.need=job;ch.wait=0;ch.work=0;assigned.set(o,ch)}
   function release(ch){if(ch.jobObj)assigned.delete(ch.jobObj);ch.jobObj=null}
+  function sandCells(){return tiles.filter(q=>land(q)&&waterAround(q))}
 
-  // Force shore type in data, not only by overlay. This is why previous sand was missing.
-  for(const q of tiles){if(land(q)&&waterAround(q)){q.type='shore';q.h=-2}}
+  for(const q of sandCells()){q.type='shore';q.h=-2}
   sortStatic();
+
+  const oldDrawLayer=drawLayer;
+  drawLayer=function(list){
+    if(list===groundDraw){
+      for(const q of sandCells()){
+        const p=iso(q.x,q.y,q.h);
+        ctx.save();
+        ctx.globalAlpha=.98;
+        pathD(p.x,p.y+1,TW*1.08,TH*.62);ctx.fillStyle='#d8ae64';ctx.fill();
+        ctx.globalAlpha=.45;
+        pathD(p.x,p.y-2,TW*.78,TH*.36);ctx.fillStyle='#f1d58a';ctx.fill();
+        ctx.globalAlpha=.18;ctx.strokeStyle='#8e6836';ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(p.x-24,p.y+6);ctx.lineTo(p.x-7,p.y+10);ctx.moveTo(p.x+7,p.y+2);ctx.lineTo(p.x+24,p.y+6);ctx.stroke();
+        ctx.restore();
+      }
+    }
+    for(const o of list){
+      if(o.kind==='blueprint'){
+        const p=iso(o.x,o.y,0);ctx.save();ctx.translate(p.x,p.y);ctx.scale(o.s||.62,o.s||.62);ctx.globalAlpha=.62;dia(0,14,52,25,'#bca161','rgba(255,235,160,.38)');ctx.strokeStyle='#e8cc79';ctx.lineWidth=2;ctx.strokeRect(-17,-7,34,24);ctx.beginPath();ctx.moveTo(-22,-7);ctx.lineTo(0,-26);ctx.lineTo(22,-7);ctx.stroke();ctx.restore();continue;
+      }
+      if(o.kind==='house'){
+        const p=iso(o.x,o.y,0);ctx.save();ctx.translate(p.x,p.y);ctx.scale(o.s||.60,o.s||.60);ctx.fillStyle='rgba(0,0,0,.30)';blob(0,32,38,10);ctx.fillStyle='#b8793d';ctx.fillRect(-21,0,42,35);ctx.fillStyle='#f4cf82';ctx.fillRect(-16,8,8,9);ctx.fillRect(8,8,8,9);ctx.fillStyle='#4d291d';ctx.fillRect(-7,16,14,20);ctx.fillStyle='#74361f';ctx.beginPath();ctx.moveTo(-32,2);ctx.lineTo(0,-26);ctx.lineTo(32,2);ctx.fill();ctx.fillStyle='#c86d31';ctx.beginPath();ctx.moveTo(-23,0);ctx.lineTo(0,-18);ctx.lineTo(23,0);ctx.fill();ctx.restore();continue;
+      }
+      const p=iso(o.x,o.y,0);({meadow,leaf,flowers,dirt,path:pathPatch,camp,tree,bush,rock,pebble}[o.kind]||(()=>{}))(p.x,p.y,o.s);
+    }
+  };
 
   const prevDrawTile=drawTile;
   drawTile=function(q){
     prevDrawTile(q);
     const p=iso(q.x,q.y,q.h);
-    if(land(q)&&waterAround(q)){
-      ctx.save();
-      ctx.globalAlpha=.95;
-      pathD(p.x,p.y+3,TW*.98,TH*.52);ctx.fillStyle='#d6ac62';ctx.fill();
-      ctx.globalAlpha=.42;
-      pathD(p.x,p.y,TW*.68,TH*.30);ctx.fillStyle='#f0d188';ctx.fill();
-      ctx.globalAlpha=.20;ctx.strokeStyle='#8f6a38';ctx.lineWidth=1;
-      ctx.beginPath();ctx.moveTo(p.x-20,p.y+4);ctx.lineTo(p.x-7,p.y+8);ctx.moveTo(p.x+6,p.y+2);ctx.lineTo(p.x+20,p.y+5);ctx.stroke();
-      ctx.restore();
-    }else if(q.type==='water'){
+    if(q.type==='water'){
       ctx.save();ctx.globalAlpha=.10;pathD(p.x,p.y-2,TW*.50,TH*.22);ctx.fillStyle='#d8fbff';ctx.fill();ctx.restore();
     }else if((q.type==='grass'||q.type==='flower'||q.type==='bushTile')&&((q.x*13+q.y*19)%6===0)){
       ctx.save();ctx.globalAlpha=.08;pathD(p.x+3,p.y+1,TW*.30,TH*.14);ctx.fillStyle='#a7ce64';ctx.fill();ctx.restore();
@@ -99,19 +116,6 @@
     ctx.fillStyle='#1d1714';ctx.fillRect(-4,-18,2,2);ctx.fillRect(4,-18,2,2);ctx.restore();
   };
 
-  const oldDrawLayer=drawLayer;
-  drawLayer=function(list){
-    for(const o of list){
-      if(o.kind==='blueprint'){
-        const p=iso(o.x,o.y,0);ctx.save();ctx.translate(p.x,p.y);ctx.scale(o.s||.62,o.s||.62);ctx.globalAlpha=.62;dia(0,14,52,25,'#bca161','rgba(255,235,160,.38)');ctx.strokeStyle='#e8cc79';ctx.lineWidth=2;ctx.strokeRect(-17,-7,34,24);ctx.beginPath();ctx.moveTo(-22,-7);ctx.lineTo(0,-26);ctx.lineTo(22,-7);ctx.stroke();ctx.restore();continue;
-      }
-      if(o.kind==='house'){
-        const p=iso(o.x,o.y,0);ctx.save();ctx.translate(p.x,p.y);ctx.scale(o.s||.60,o.s||.60);ctx.fillStyle='rgba(0,0,0,.30)';blob(0,32,38,10);ctx.fillStyle='#b8793d';ctx.fillRect(-21,0,42,35);ctx.fillStyle='#f4cf82';ctx.fillRect(-16,8,8,9);ctx.fillRect(8,8,8,9);ctx.fillStyle='#4d291d';ctx.fillRect(-7,16,14,20);ctx.fillStyle='#74361f';ctx.beginPath();ctx.moveTo(-32,2);ctx.lineTo(0,-26);ctx.lineTo(32,2);ctx.fill();ctx.fillStyle='#c86d31';ctx.beginPath();ctx.moveTo(-23,0);ctx.lineTo(0,-18);ctx.lineTo(23,0);ctx.fill();ctx.restore();continue;
-      }
-      const p=iso(o.x,o.y,0);({meadow,leaf,flowers,dirt,path:pathPatch,camp,tree,bush,rock,pebble}[o.kind]||(()=>{}))(p.x,p.y,o.s);
-    }
-  };
-
   const oldSelect=selectAt;
   selectAt=function(clientX,clientY){oldSelect(clientX,clientY);selected=null;const sx=clientX*DPR,sy=clientY*DPR;function sp(o,z=0){const p=iso(o.x,o.y,z),ox=cam.x/(cam.z*DPR)-40,oy=cam.y/(cam.z*DPR)-18;return{x:(p.x+ox)*cam.z*DPR,y:(p.y+oy)*cam.z*DPR}}let bd=999;for(const o of [...chars,...structures,...flora]){const p=sp(o,0),di=Math.hypot(p.x-sx,p.y-sy);if(di<55*DPR&&di<bd){bd=di;selected=o}}};
 
@@ -129,5 +133,5 @@
     ctx.fillStyle='#f6e4aa';ctx.font=(10.5*DPR)+'px system-ui,sans-serif';ctx.fillText(`D1 · 👥${chars.length} · 🍓${Math.floor(state.food||0)} · 🪵${Math.floor(state.wood||0)} · 🪨${Math.floor(state.stone||0)} · ${qualityMsg}`,x+9*DPR,y+19*DPR);
     ctx.restore();
   };
-  qualityMsg='берег исправлен';setCard('Quality v4','Песок принудительно включён по всем береговым клеткам.');
+  qualityMsg='песок слоем';setCard('Quality v5','Песок рисуется отдельным слоем перед объектами.');
 })();
