@@ -1,10 +1,10 @@
-// YourWill quality pass v5
-// Branch: cozy-current only. Real visible sand layer drawn after terrain before objects.
+// YourWill quality pass v6
+// Branch: cozy-current only. Directional beach strips, not full sand tiles.
 (function(){
   const fx=[];
   window.ywFx=fx;
   let selected=null;
-  let qualityMsg='берег v5';
+  let qualityMsg='берег v6';
   const assigned=new WeakMap();
 
   const style=document.createElement('style');
@@ -15,29 +15,53 @@
   function addFx(x,y,kind,txt=''){fx.push({x,y,kind,txt,l:70,t:0})}
   function dd(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
   function resOf(o){return o.res||(o.kind==='tree'?'wood':o.kind==='rock'||o.kind==='pebble'?'stone':o.kind==='bush'?'food':null)}
-  function waterAround(q){return isWater(q.x+1,q.y)||isWater(q.x-1,q.y)||isWater(q.x,q.y+1)||isWater(q.x,q.y-1)||isWater(q.x+1,q.y+1)||isWater(q.x-1,q.y-1)||isWater(q.x+1,q.y-1)||isWater(q.x-1,q.y+1)}
+  function waterN(q){return isWater(q.x,q.y-1)}
+  function waterS(q){return isWater(q.x,q.y+1)}
+  function waterE(q){return isWater(q.x+1,q.y)}
+  function waterW(q){return isWater(q.x-1,q.y)}
+  function waterDiag(q){return isWater(q.x+1,q.y+1)||isWater(q.x-1,q.y-1)||isWater(q.x+1,q.y-1)||isWater(q.x-1,q.y+1)}
+  function waterAround(q){return waterN(q)||waterS(q)||waterE(q)||waterW(q)||waterDiag(q)}
   function land(q){return q&&q.type!=='water'}
   function nearest(ch,list,filter){let best=null,bd=999;for(const o of list){if(filter&&!filter(o))continue;if(assigned.get(o)&&assigned.get(o)!==ch)continue;const d=dd(ch,o);if(d<bd){bd=d;best=o}}return best}
   function target(ch,o,job){if(ch.jobObj)assigned.delete(ch.jobObj);ch.targetX=o.x;ch.targetY=o.y;ch.jobObj=o;ch.need=job;ch.wait=0;ch.work=0;assigned.set(o,ch)}
   function release(ch){if(ch.jobObj)assigned.delete(ch.jobObj);ch.jobObj=null}
   function sandCells(){return tiles.filter(q=>land(q)&&waterAround(q))}
 
-  for(const q of sandCells()){q.type='shore';q.h=-2}
+  // Keep land as grass; beach is a thin overlay only.
+  for(const q of tiles){if(q.type==='shore')q.type='grass'}
   sortStatic();
+
+  function sandStrip(p,side){
+    ctx.save();
+    ctx.globalAlpha=.88;
+    ctx.fillStyle='#d7ad63';
+    ctx.beginPath();
+    if(side==='N'){
+      ctx.moveTo(p.x,p.y-TH/2+4);ctx.lineTo(p.x+TW/2-7,p.y-1);ctx.lineTo(p.x+TW/2-18,p.y+5);ctx.lineTo(p.x,p.y-TH/2+12);ctx.lineTo(p.x-TW/2+18,p.y+5);ctx.lineTo(p.x-TW/2+7,p.y-1);
+    }else if(side==='S'){
+      ctx.moveTo(p.x,p.y+TH/2-4);ctx.lineTo(p.x+TW/2-7,p.y+1);ctx.lineTo(p.x+TW/2-18,p.y-5);ctx.lineTo(p.x,p.y+TH/2-12);ctx.lineTo(p.x-TW/2+18,p.y-5);ctx.lineTo(p.x-TW/2+7,p.y+1);
+    }else if(side==='E'){
+      ctx.moveTo(p.x+TW/2-4,p.y);ctx.lineTo(p.x+9,p.y+TH/2-6);ctx.lineTo(p.x+1,p.y+TH/2-12);ctx.lineTo(p.x+TW/2-14,p.y);ctx.lineTo(p.x+1,p.y-TH/2+12);ctx.lineTo(p.x+9,p.y-TH/2+6);
+    }else if(side==='W'){
+      ctx.moveTo(p.x-TW/2+4,p.y);ctx.lineTo(p.x-9,p.y+TH/2-6);ctx.lineTo(p.x-1,p.y+TH/2-12);ctx.lineTo(p.x-TW/2+14,p.y);ctx.lineTo(p.x-1,p.y-TH/2+12);ctx.lineTo(p.x-9,p.y-TH/2+6);
+    }
+    ctx.closePath();ctx.fill();
+    ctx.globalAlpha=.30;ctx.fillStyle='#f2d789';ctx.fill();
+    ctx.restore();
+  }
 
   const oldDrawLayer=drawLayer;
   drawLayer=function(list){
     if(list===groundDraw){
       for(const q of sandCells()){
         const p=iso(q.x,q.y,q.h);
-        ctx.save();
-        ctx.globalAlpha=.98;
-        pathD(p.x,p.y+1,TW*1.08,TH*.62);ctx.fillStyle='#d8ae64';ctx.fill();
-        ctx.globalAlpha=.45;
-        pathD(p.x,p.y-2,TW*.78,TH*.36);ctx.fillStyle='#f1d58a';ctx.fill();
-        ctx.globalAlpha=.18;ctx.strokeStyle='#8e6836';ctx.lineWidth=1;
-        ctx.beginPath();ctx.moveTo(p.x-24,p.y+6);ctx.lineTo(p.x-7,p.y+10);ctx.moveTo(p.x+7,p.y+2);ctx.lineTo(p.x+24,p.y+6);ctx.stroke();
-        ctx.restore();
+        if(waterN(q))sandStrip(p,'N');
+        if(waterS(q))sandStrip(p,'S');
+        if(waterE(q))sandStrip(p,'E');
+        if(waterW(q))sandStrip(p,'W');
+        if(!waterN(q)&&!waterS(q)&&!waterE(q)&&!waterW(q)&&waterDiag(q)){
+          ctx.save();ctx.globalAlpha=.50;pathD(p.x,p.y,TW*.26,TH*.13);ctx.fillStyle='#d7ad63';ctx.fill();ctx.restore();
+        }
       }
     }
     for(const o of list){
@@ -133,5 +157,5 @@
     ctx.fillStyle='#f6e4aa';ctx.font=(10.5*DPR)+'px system-ui,sans-serif';ctx.fillText(`D1 · 👥${chars.length} · 🍓${Math.floor(state.food||0)} · 🪵${Math.floor(state.wood||0)} · 🪨${Math.floor(state.stone||0)} · ${qualityMsg}`,x+9*DPR,y+19*DPR);
     ctx.restore();
   };
-  qualityMsg='песок слоем';setCard('Quality v5','Песок рисуется отдельным слоем перед объектами.');
+  qualityMsg='узкий берег';setCard('Quality v6','Берег теперь тонкой кромкой со стороны воды.');
 })();
