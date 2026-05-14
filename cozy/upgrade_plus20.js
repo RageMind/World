@@ -1,9 +1,9 @@
-// YourWill quality pass v7
-// Branch: cozy-current only. Proper thin coast edge, clean HUD, visible worker loop.
+// YourWill quality pass v8
+// Branch: cozy-current only. No fake beach. Keep gameplay improvements.
 (function(){
   const fx=[];
   let selected=null;
-  let msg='берег v7';
+  let msg='без кривого берега';
   const assigned=new WeakMap();
   window.ywFx=fx;
 
@@ -15,62 +15,68 @@
   function addFx(x,y,kind,txt=''){fx.push({x,y,kind,txt,l:70,t:0})}
   function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
   function resOf(o){return o.res||(o.kind==='tree'?'wood':o.kind==='rock'||o.kind==='pebble'?'stone':o.kind==='bush'?'food':null)}
-  function isLandTile(q){return q&&q.type!=='water'}
-  function waterAt(x,y){return isWater(x,y)}
   function nearest(ch,list,filter){let best=null,bd=999;for(const o of list){if(filter&&!filter(o))continue;if(assigned.get(o)&&assigned.get(o)!==ch)continue;const d=dist(ch,o);if(d<bd){bd=d;best=o}}return best}
   function target(ch,o,job){if(ch.jobObj)assigned.delete(ch.jobObj);ch.targetX=o.x;ch.targetY=o.y;ch.jobObj=o;ch.need=job;ch.wait=0;ch.work=0;assigned.set(o,ch)}
   function release(ch){if(ch.jobObj)assigned.delete(ch.jobObj);ch.jobObj=null}
 
-  // Remove broken shore tiles. Coast is a narrow edge overlay only.
+  // Remove all previous fake shoreline state. Proper shore will be added later with a real coast tileset.
   for(const q of tiles){if(q.type==='shore')q.type='grass';q.h=q.type==='water'?-5:0}
   sortStatic();
-
-  function drawEdgeStrip(p,a,b){
-    const inset=.14;
-    const ax=p.x+a[0],ay=p.y+a[1],bx=p.x+b[0],by=p.y+b[1];
-    const iax=ax+(p.x-ax)*inset,iay=ay+(p.y-ay)*inset;
-    const ibx=bx+(p.x-bx)*inset,iby=by+(p.y-by)*inset;
-    ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.lineTo(ibx,iby);ctx.lineTo(iax,iay);ctx.closePath();
-    ctx.globalAlpha=.90;ctx.fillStyle='#d8b36d';ctx.fill();
-    ctx.globalAlpha=.22;ctx.fillStyle='#f2d98e';ctx.fill();
-    ctx.globalAlpha=1;
-  }
-  function drawBeachFor(q){
-    if(!isLandTile(q))return;
-    const p=iso(q.x,q.y,q.h);
-    ctx.save();
-    // Isometric tile sides only. No full diamonds, no L-patterns.
-    if(waterAt(q.x,q.y-1))drawEdgeStrip(p,[0,-TH/2],[TW/2,0]);
-    if(waterAt(q.x+1,q.y))drawEdgeStrip(p,[TW/2,0],[0,TH/2]);
-    if(waterAt(q.x,q.y+1))drawEdgeStrip(p,[0,TH/2],[-TW/2,0]);
-    if(waterAt(q.x-1,q.y))drawEdgeStrip(p,[-TW/2,0],[0,-TH/2]);
-    ctx.restore();
-  }
 
   const baseDrawTile=drawTile;
   drawTile=function(q){
     baseDrawTile(q);
     const p=iso(q.x,q.y,q.h);
     if(q.type==='water'){
-      ctx.save();ctx.globalAlpha=.10;pathD(p.x,p.y-2,TW*.50,TH*.22);ctx.fillStyle='#d8fbff';ctx.fill();ctx.restore();
+      ctx.save();
+      ctx.globalAlpha=.10;
+      pathD(p.x,p.y-2,TW*.50,TH*.22);
+      ctx.fillStyle='#d8fbff';
+      ctx.fill();
+      ctx.restore();
     }else if((q.type==='grass'||q.type==='flower'||q.type==='bushTile')&&((q.x*13+q.y*19)%6===0)){
-      ctx.save();ctx.globalAlpha=.07;pathD(p.x+3,p.y+1,TW*.30,TH*.14);ctx.fillStyle='#a7ce64';ctx.fill();ctx.restore();
+      ctx.save();
+      ctx.globalAlpha=.07;
+      pathD(p.x+3,p.y+1,TW*.30,TH*.14);
+      ctx.fillStyle='#a7ce64';
+      ctx.fill();
+      ctx.restore();
     }
   };
 
   const baseDrawLayer=drawLayer;
   drawLayer=function(list){
-    if(list===groundDraw){
-      for(const q of tileDraw)drawBeachFor(q);
-    }
     for(const o of list){
       if(o.kind==='blueprint'){
-        const p=iso(o.x,o.y,0);ctx.save();ctx.translate(p.x,p.y);ctx.scale(o.s||.60,o.s||.60);ctx.globalAlpha=.55;dia(0,14,50,24,'#bca161','rgba(255,235,160,.35)');ctx.strokeStyle='#e8cc79';ctx.lineWidth=2;ctx.strokeRect(-16,-7,32,23);ctx.beginPath();ctx.moveTo(-21,-7);ctx.lineTo(0,-25);ctx.lineTo(21,-7);ctx.stroke();ctx.restore();continue;
+        const p=iso(o.x,o.y,0);
+        ctx.save();
+        ctx.translate(p.x,p.y);
+        ctx.scale(o.s||.58,o.s||.58);
+        ctx.globalAlpha=.50;
+        dia(0,14,48,23,'#bca161','rgba(255,235,160,.32)');
+        ctx.strokeStyle='#e8cc79';
+        ctx.lineWidth=2;
+        ctx.strokeRect(-15,-7,30,22);
+        ctx.beginPath();ctx.moveTo(-20,-7);ctx.lineTo(0,-24);ctx.lineTo(20,-7);ctx.stroke();
+        ctx.restore();
+        continue;
       }
       if(o.kind==='house'){
-        const p=iso(o.x,o.y,0);ctx.save();ctx.translate(p.x,p.y);ctx.scale(o.s||.60,o.s||.60);ctx.fillStyle='rgba(0,0,0,.30)';blob(0,32,38,10);ctx.fillStyle='#b8793d';ctx.fillRect(-21,0,42,35);ctx.fillStyle='#f4cf82';ctx.fillRect(-16,8,8,9);ctx.fillRect(8,8,8,9);ctx.fillStyle='#4d291d';ctx.fillRect(-7,16,14,20);ctx.fillStyle='#74361f';ctx.beginPath();ctx.moveTo(-32,2);ctx.lineTo(0,-26);ctx.lineTo(32,2);ctx.fill();ctx.fillStyle='#c86d31';ctx.beginPath();ctx.moveTo(-23,0);ctx.lineTo(0,-18);ctx.lineTo(23,0);ctx.fill();ctx.restore();continue;
+        const p=iso(o.x,o.y,0);
+        ctx.save();
+        ctx.translate(p.x,p.y);
+        ctx.scale(o.s||.60,o.s||.60);
+        ctx.fillStyle='rgba(0,0,0,.30)';blob(0,32,38,10);
+        ctx.fillStyle='#b8793d';ctx.fillRect(-21,0,42,35);
+        ctx.fillStyle='#f4cf82';ctx.fillRect(-16,8,8,9);ctx.fillRect(8,8,8,9);
+        ctx.fillStyle='#4d291d';ctx.fillRect(-7,16,14,20);
+        ctx.fillStyle='#74361f';ctx.beginPath();ctx.moveTo(-32,2);ctx.lineTo(0,-26);ctx.lineTo(32,2);ctx.fill();
+        ctx.fillStyle='#c86d31';ctx.beginPath();ctx.moveTo(-23,0);ctx.lineTo(0,-18);ctx.lineTo(23,0);ctx.fill();
+        ctx.restore();
+        continue;
       }
-      const p=iso(o.x,o.y,0);({meadow,leaf,flowers,dirt,path:pathPatch,camp,tree,bush,rock,pebble}[o.kind]||(()=>{}))(p.x,p.y,o.s);
+      const p=iso(o.x,o.y,0);
+      ({meadow,leaf,flowers,dirt,path:pathPatch,camp,tree,bush,rock,pebble}[o.kind]||(()=>{}))(p.x,p.y,o.s);
     }
   };
 
@@ -129,7 +135,14 @@
   };
 
   const baseSelect=selectAt;
-  selectAt=function(clientX,clientY){baseSelect(clientX,clientY);selected=null;const sx=clientX*DPR,sy=clientY*DPR;function sp(o,z=0){const p=iso(o.x,o.y,z),ox=cam.x/(cam.z*DPR)-40,oy=cam.y/(cam.z*DPR)-18;return{x:(p.x+ox)*cam.z*DPR,y:(p.y+oy)*cam.z*DPR}}let bd=999;for(const o of [...chars,...structures,...flora]){const p=sp(o,0),di=Math.hypot(p.x-sx,p.y-sy);if(di<55*DPR&&di<bd){bd=di;selected=o}}};
+  selectAt=function(clientX,clientY){
+    baseSelect(clientX,clientY);
+    selected=null;
+    const sx=clientX*DPR,sy=clientY*DPR;
+    function sp(o,z=0){const p=iso(o.x,o.y,z),ox=cam.x/(cam.z*DPR)-40,oy=cam.y/(cam.z*DPR)-18;return{x:(p.x+ox)*cam.z*DPR,y:(p.y+oy)*cam.z*DPR}}
+    let bd=999;
+    for(const o of [...chars,...structures,...flora]){const p=sp(o,0),di=Math.hypot(p.x-sx,p.y-sy);if(di<55*DPR&&di<bd){bd=di;selected=o}}
+  };
 
   const baseDraw=draw;
   draw=function(){
@@ -145,5 +158,6 @@
     ctx.fillStyle='#f6e4aa';ctx.font=(10.5*DPR)+'px system-ui,sans-serif';ctx.fillText(`D1 · 👥${chars.length} · 🍓${Math.floor(state.food||0)} · 🪵${Math.floor(state.wood||0)} · 🪨${Math.floor(state.stone||0)} · ${msg}`,x+9*DPR,y+19*DPR);
     ctx.restore();
   };
-  msg='берег тонкий';setCard('Quality v7','Песок теперь только тонкой кромкой по реальному краю.');
+  msg='берег отключён';
+  setCard('Quality v8','Кривой песочный overlay удалён. Берег будет добавлен только нормальным tileset.');
 })();
